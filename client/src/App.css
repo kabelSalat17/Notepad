@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300&display=swap');
+
+body{
+  font-family: 'Lemonada', cursive;
+}
+
+.container{
+  height: 100vh;
+}
+.navbar-nav{
+  flex-direction: row;
+}
+.bg{
+  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+  min-height: 100vh;
+}
+
+a{
+  color: white;
+}
+
+a:hover{
+  color: #a6c1ee;
+}
+
+.alert-text{
+  font-size: 0.8rem;
+}
+
+.welcome-container {
+  text-align: center;
+  width: 60vw;
+  margin: 0 auto;
+  padding-top: 7em;
+}
+.card-body{
+  min-height: 22em;
+}
+.fa-trash-alt{
+  color: red;
+}
+
+.fa-edit {
+  color: blue;
+}
+.edit, .delete{
+  background-color: transparent !important;
+  box-shadow: none;
+  padding: 0.3em;
+  margin: 0.5em 0 ;
+}
+.edit:hover, .delete:hover{
+  color: black;
+  box-shadow: none;
+}
+
+.btn-default{
+  color: black;
+}
+.card-body{
+  position: relative;
+}
+.icons-container{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right:1.5em;
+}
