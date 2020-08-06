@@ -1,33 +1,39 @@
 import React, { useState }  from 'react'
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import cookie from 'js-cookie'
 import { MDBBtn, MDBCard, MDBCardBody, MDBIcon, MDBRow, MDBCol, MDBContainer } from 'mdbreact';
 import Navbar from './Navbar';
+import {connect} from 'react-redux'
 
 
-
-const New = () => {
+const New = ({token, setData}) => {
     let history = useHistory();
-    let token = cookie.get('token')
+    let tkn = token
 
-
-    const [data, setData] = useState({title:'', text:''});
+    const loadData = ()=> {
+        axios.get('http://127.0.0.1:8000/api/auth/notes', {
+            params:{
+                token:tkn
+            }})
+            .then((res => setData(res.data)))
+    }
+    const [info, setInfo] = useState({title:'', text:''});
 
     const handleInput = (e) => {
         e.preventDefault();
         const name = e.target.name
         const value = e.target.value
-        setData({...data,[name]:value})
+        setInfo({...info,[name]:value})
     }
     const handleForm = (e) => {
         e.preventDefault();
-        const new_data = {title: data.title, text: data.text}
-        axios.post("http://127.0.0.1:8000/api/auth/notes/", new_data, {
+        const new_info = {title: info.title, text: info.text}
+        axios.post("http://127.0.0.1:8000/api/auth/notes/", new_info, {
             params: {
-                token : token
+                token : tkn
             }})
-            .then(history.push('/profile'))        
+            .then(history.push('/profile'))
+            .then(()=>loadData())
         
     }
 
@@ -52,7 +58,7 @@ return (
                 name = "title"
                 className="form-control"
                 onChange={handleInput}
-                value={data.title||''}
+                value={info.title||''}
                 />
                 <br />
                 <label
@@ -66,7 +72,7 @@ return (
                 name="text"
                 className="form-control"
                 onChange={handleInput}
-                value={data.text}
+                value={info.text}
                 />
                 <div className="text-center py-4 mt-3">
                 <MDBBtn className="btn btn-outline-blue" type="submit">
@@ -86,4 +92,22 @@ return (
 );
 };
 
-export default New;
+
+const mapStateToProps = state => {
+    return {
+        token:state.auth.token,
+        data:state.auth.data,
+
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setData : (data) => dispatch({
+            type : "SET_DATA",
+            payload: data
+        })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(New);

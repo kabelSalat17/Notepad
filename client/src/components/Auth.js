@@ -5,7 +5,6 @@ import {connect} from 'react-redux'
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
 const AuthRoute = ({ component: Component, ...rest }) => {
-
     return (
     <Route
         {...rest}

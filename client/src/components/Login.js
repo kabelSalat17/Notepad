@@ -5,6 +5,7 @@ import cookie from 'js-cookie'
 import {connect} from 'react-redux'
 import Error from './Error'
 import Navbar from './Navbar';
+
 class Login extends Component {
 
     constructor(props){
@@ -20,11 +21,9 @@ class Login extends Component {
                 cookie.set('token', res.data.access_token)
                 //dispatch to set login state
                 this.props.setLogin(res.data.user)
-                //navigate progmatically
-                this.props.history.push('/profile') 
+                this.props.setToken(res.data.access_token)
             })
             .catch(e => this.setState({errors: e.response.data.errors}))
-        
     }
 
     handleInput = (e) => {
@@ -73,6 +72,10 @@ const mapDispactToProps = dispatch => {
         setLogin : (user) => dispatch({
             type : "SET_LOGIN",
             payload:user
+        }),
+        setToken : (tkn) => dispatch({
+            type : "SET_TOKEN",
+            payload:tkn
         })
     }}
 

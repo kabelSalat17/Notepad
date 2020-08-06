@@ -1,18 +1,18 @@
-//Store
-import {createStore} from 'redux';
-import Reducer from './reducers/Reducer'
+import { createStore } from "redux";
+import AllReducers from "./reducers/AllReducers";
 
-//create store
 const initialStates = {
-    auth:{
-        loggedIn:false,
-        user:{},
+    auth: {
+        loggedIn: false,
+        user: {},
+        data:[],
+        pending:false,
+        token: null , 
     }
-}
+};
 const store = createStore(
-    Reducer, 
+    AllReducers,
     initialStates,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-
-export default store
+);
+export default store;

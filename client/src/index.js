@@ -6,7 +6,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from './redux-store/index';
+import store from './redux-store/index'
 import {Provider} from 'react-redux'
 import axios from 'axios'
 import cookie from 'js-cookie'
@@ -47,7 +47,7 @@ const render = () => {
 //if token exists //avoid login flash
 if(token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-  //if you refresh and token still exists redirect to /profile 
+  //if you refresh and token still exists redirect to /profile
   axios.post("http://127.0.0.1:8000/api/auth/me")
     .then(res => {
       store.dispatch({type:"SET_LOGIN", payload:res.data})

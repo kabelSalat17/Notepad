@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import {
-MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBIcon} from "mdbreact";
+MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink} from "mdbreact";
 import { BrowserRouter as Router } from 'react-router-dom';
 import cookie from 'js-cookie'
 import {connect} from 'react-redux'
@@ -9,13 +9,12 @@ import {connect} from 'react-redux'
 
 const NavbarPage = (props) => {
     let history = useHistory();
-    const [width, setWidth] = useState()
-
 
     const handleLogout = (e) => {
         e.preventDefault()
         cookie.remove("token")
         props.logout()
+        history.go()
     }
 
     const handleHome = (e) => {
@@ -25,15 +24,13 @@ const NavbarPage = (props) => {
 
     const handleCreate = (e) => {
         e.preventDefault()
-        history.push('/create')
+        history.push('/profile/create')
     }
 
-    const update = () => {
-        setWidth(window.innerWidth)
-        console.log(width)
+    const handleRegister = (e) => {
+        e.preventDefault()
+        history.push('/register')
     }
-    window.addEventListener("resize", update)
-
 return (
     <Router>
     <MDBNavbar color="grey darken-4" dark expand="md" fixed="top">
@@ -44,25 +41,18 @@ return (
         </MDBNavbarBrand>
         <MDBNavbarNav right className="d-flex">
             <MDBNavItem>
-                {width>700
-                    ? 
-                    <MDBNavLink to="/create" onClick={handleCreate}>Add Note</MDBNavLink> 
-                    :
-                    <MDBNavLink to="/create" onClick={handleCreate}><MDBIcon icon="plus" /></MDBNavLink>
-                }
+                <MDBNavLink to="/create" onClick={handleCreate}>Add Note</MDBNavLink> 
             </MDBNavItem>
             <MDBNavItem>
-                {width>700
-                    ? 
-                    <MDBNavLink to="/logout" onClick={handleLogout}>Log Out</MDBNavLink>
-
-                    :
-                    <MDBNavLink to="/logout" onClick={handleLogout}><MDBIcon icon="sign-out-alt" /></MDBNavLink>
-                }
+                <MDBNavLink to="/register" onClick={handleRegister}>Register</MDBNavLink> 
+            </MDBNavItem>
+            <MDBNavItem>
+                <MDBNavLink to="/logout" onClick={handleLogout}>Log Out</MDBNavLink>
             </MDBNavItem>
         </MDBNavbarNav>
     </MDBNavbar>
     </Router>
+    
     );
 }
 

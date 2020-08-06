@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router, Route
+  BrowserRouter as Router
 } from "react-router-dom";
 import './App.css';
 import Login from './components/Login'
@@ -16,12 +16,12 @@ function App() {
   return (
     <Router>
       <div className="bg">
-        <Route path="/" exact component={Welcome}></Route>
+        <GuestRoute path="/" exact component={Welcome}></GuestRoute>
         <GuestRoute path="/login" component={Login}/>
         <GuestRoute path="/register" component={Register}/>
         <AuthRoute path="/profile" exact component={Profile}/>
-        <AuthRoute path="/create/"  component={Create}/>
-        <AuthRoute path="/note/:id"  component={Edit}/>
+        <AuthRoute path="/profile/create"  component={Create}/>
+        <AuthRoute path="/profile/note/:id"  component={Edit}/>
       </div>
     </Router>
   );
